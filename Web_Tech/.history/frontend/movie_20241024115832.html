@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1 id="movieName">Movie Title</h1>
+        <a href="#" id="logout">Logout</a>
+    </div>
+    
+    <div id="movieDetails">
+        <img id="moviePoster" src="movie-poster.jpg" alt="Movie Poster">
+        <p id="movieDescription">Movie description goes here.</p>
+        
+        <h2>Reviews</h2>
+        <div id="reviews">
+            <!-- Submitted reviews will appear here -->
+        </div>
+        
+        <h3>Add Your Review</h3>
+        <input type="text" id="reviewContent" placeholder="Your review">
+        <button id="submitReview">Submit Review</button>
+    </div>
+
+    <!-- JavaScript file to handle review submission -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const reviewsDiv = document.getElementById("reviews");
+            const submitButton = document.getElementById("submitReview");
+            const reviewContent = document.getElementById("reviewContent");
+
+            // Function to display a new review
+            function addReview(content) {
+                const newReview = document.createElement("p");
+                newReview.textContent = content;
+                reviewsDiv.appendChild(newReview);
+            }
+
+            // Handle review submission
+            submitButton.addEventListener("click", () => {
+                const reviewText = reviewContent.value.trim();
+                if (reviewText) {
+                    addReview(reviewText);
+                    reviewContent.value = "";  // Clear the input field after submission
+                } else {
+                    alert("Please enter a review before submitting.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

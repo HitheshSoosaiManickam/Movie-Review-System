@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1 id="movieName">Movie Title</h1>
+        <a href="#" id="logout">Logout</a>
+    </div>
+    
+    <div id="movieDetails">
+        <img id="moviePoster" src="movie-poster.jpg" alt="Movie Poster">
+        <p id="movieDescription">Movie description goes here.</p>
+        
+        <h2>Reviews</h2>
+        <div id="reviews">
+            <!-- Submitted reviews will appear here -->
+        </div>
+        
+        <h3>Add Your Review</h3>
+        <input type="text" id="userName" placeholder="Your name">
+        <input type="text" id="reviewContent" placeholder="Your review">
+        <input type="file" id="userPhoto" accept="image/*">
+        <button id="submitReview">Submit Review</button>
+    </div>
+
+    <!-- JavaScript file to handle review submission -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const reviewsDiv = document.getElementById("reviews");
+            const submitButton = document.getElementById("submitReview");
+            const userName = document.getElementById("userName");
+            const reviewContent = document.getElementById("reviewContent");
+            const userPhoto = document.getElementById("userPhoto");
+
+            // Function to display a new review with username and photo
+            function addReview(name, content, photoUrl) {
+                const reviewContainer = document.createElement("div");
+                reviewContainer.className = "review-item";
+
+                const userImg = document.createElement("img");
+                userImg.src = photoUrl;
+                userImg.alt = name;
+                userImg.className = "user-photo";
+
+                const userNameElem = document.createElement("h4");
+                userNameElem.textContent = name;
+
+                const reviewText = document.createElement("p");
+                reviewText.textContent = content;
+
+                reviewContainer.appendChild(userImg);
+                reviewContainer.appendChild(userNameElem);
+                reviewContainer.appendChild(reviewText);
+
+                reviewsDiv.appendChild(reviewContainer);
+            }
+
+            // Handle review submission
+            submitButton.addEventListener("click", () => {
+                const name = userName.value.trim();
+                const reviewText = reviewContent.value.trim();
+                const photoFile = userPhoto.files[0];
+
+                if (name && reviewText && photoFile) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const photoUrl = e.target.result;
+                        addReview(name, reviewText, photoUrl);
+                    };
+                    reader.readAsDataURL(photoFile);
+
+                    // Clear the input fields after submission
+                    userName.value = "";
+                    reviewContent.value = "";
+                    userPhoto.value = "";
+                } else {
+                    alert("Please fill in your name, review, and select a photo before submitting.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

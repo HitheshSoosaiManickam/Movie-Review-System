@@ -1,0 +1,23 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const reviewsDiv = document.getElementById("reviews");
+    const submitButton = document.getElementById("submitReview");
+    const reviewContent = document.getElementById("reviewContent");
+
+    // Function to display a new review
+    function addReview(content) {
+        const newReview = document.createElement("p");
+        newReview.textContent = content;
+        reviewsDiv.appendChild(newReview);
+    }
+
+    // Handle review submission
+    submitButton.addEventListener("click", () => {
+        const reviewText = reviewContent.value.trim();
+        if (reviewText) {
+            addReview(reviewText);
+            reviewContent.value = "";  // Clear the input field after submission
+        } else {
+            alert("Please enter a review before submitting.");
+        }
+    });
+});

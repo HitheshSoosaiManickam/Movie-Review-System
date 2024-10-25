@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header text-center my-4">
+            <h1 id="movieName">Movie Title</h1>
+            <a href="#" id="logout" class="btn btn-danger">Logout</a>
+        </div>
+
+        <div id="movieDetails" class="text-center">
+            <img id="moviePoster" src="movie-poster.jpg" alt="Movie Poster" class="img-fluid mb-3">
+            <p id="movieDescription">Movie description goes here.</p>
+
+            <h2>Reviews</h2>
+            <div id="reviews" class="mb-4">
+                <div class="review-item card mb-3 p-3">
+                    <h5>User Name 1</h5>
+                    <p>This is a fantastic movie! Highly recommended!</p>
+                </div>
+                <div class="review-item card mb-3 p-3">
+                    <h5>User Name 2</h5>
+                    <p>I didn't enjoy it as much as I thought I would.</p>
+                </div>
+                <div class="review-item card mb-3 p-3">
+                    <h5>User Name 3</h5>
+                    <p>Great plot and amazing performances!</p>
+                </div>
+            </div>
+
+            <h3>Add Your Review</h3>
+            <div class="form-group">
+                <input type="text" id="userName" class="form-control" placeholder="Your name">
+            </div>
+            <div class="form-group">
+                <input type="text" id="reviewContent" class="form-control" placeholder="Your review">
+            </div>
+            <button id="submitReview" class="btn btn-primary">Submit Review</button>
+        </div>
+
+        <div id="userReviews" class="mt-4">
+            <!-- User submitted reviews will appear here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("submitReview").addEventListener("click", function() {
+            const name = document.getElementById("userName").value.trim();
+            const review = document.getElementById("reviewContent").value.trim();
+
+            if (name && review) {
+                const reviewContainer = document.createElement("div");
+                reviewContainer.className = "review-item card mb-3 p-3";
+
+                const userNameElem = document.createElement("h5");
+                userNameElem.textContent = name;
+
+                const reviewText = document.createElement("p");
+                reviewText.textContent = review;
+
+                reviewContainer.appendChild(userNameElem);
+                reviewContainer.appendChild(reviewText);
+                document.getElementById("userReviews").appendChild(reviewContainer);
+
+                // Clear the input fields after submission
+                document.getElementById("userName").value = "";
+                document.getElementById("reviewContent").value = "";
+            } else {
+                alert("Please fill in your name and review before submitting.");
+            }
+        });
+    </script>
+</body>
+</html>
